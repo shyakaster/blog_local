@@ -13,21 +13,21 @@
 
 ActiveRecord::Schema.define(version: 20141203020035) do
 
-  create_table "articles", force: true do |t|
-    t.string   "title"
-    t.text     "text"
+  create_table "articles", force: :cascade do |t|
+    t.string   "title",      limit: 255
+    t.text     "text",       limit: 65535
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "comments", force: true do |t|
-    t.string   "commenter"
-    t.text     "body"
-    t.integer  "article_id"
+  create_table "comments", force: :cascade do |t|
+    t.string   "commenter",  limit: 255
+    t.text     "body",       limit: 65535
+    t.integer  "article_id", limit: 4
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "comments", ["article_id"], name: "index_comments_on_article_id"
+  add_index "comments", ["article_id"], name: "index_comments_on_article_id", using: :btree
 
 end
